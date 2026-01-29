@@ -1,125 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1749164574271353"
-     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1749164574271353">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1749164574271353" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRAL JET PRO | APEX v10</title>
+    <title>MediaTools Pro | AI Content Optimizer 2026</title>
+    
+    <meta name="description" content="MediaTools Pro is an advanced digital assistant for content creators. Analyze and optimize your metadata effortlessly.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
-        .apex-card { background: #080808; border: 1px solid #1a1a1a; border-radius: 40px; box-shadow: 0 0 50px rgba(0, 255, 255, 0.05); }
-        .neon-glow { border: 1px solid #00f2ff; box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
-        .btn-apex { background: linear-gradient(90deg, #00f2ff, #0072ff); color: #000; font-weight: 900; border-radius: 20px; transition: 0.3s; }
-        .btn-apex:hover { transform: scale(1.02); filter: brightness(1.2); }
-        .loading-bar { height: 4px; background: #00f2ff; width: 0%; transition: 0.4s; border-radius: 10px; }
-        @keyframes pulse { 50% { opacity: 0.5; } }
-        .status-text { font-size: 10px; letter-spacing: 5px; color: #555; animation: pulse 1s infinite; }
+        :root { --main-red: #e11d48; --dark-bg: #0f172a; }
+        body { background-color: var(--dark-bg); color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, rgba(225, 29, 72, 0.15) 0%, transparent 70%); }
     </style>
 </head>
-<body class="flex flex-col min-h-screen items-center justify-center p-6">
+<body class="min-h-screen hero-gradient flex flex-col">
 
-    <div class="w-full max-w-4xl text-center">
-        <h1 class="text-6xl font-black italic tracking-tighter mb-2">APEX <span class="text-cyan-400">v10.0</span></h1>
-        <p class="status-text uppercase mb-12">Universal Decryption Node Active</p>
+    <nav class="p-6 border-b border-white/5 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tight text-white italic">
+                MEDIA<span class="text-rose-600">TOOLS</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[11px] uppercase font-semibold tracking-[0.2em] text-slate-400">
+                <a href="#" class="hover:text-rose-500 transition">Privacy</a>
+                <a href="#" class="hover:text-rose-500 transition">Terms</a>
+                <a href="#" class="hover:text-rose-500 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-        <div class="apex-card p-10 md:p-20 relative overflow-hidden">
-            <div id="loaderBar" class="loading-bar absolute top-0 left-0"></div>
-            
-            <div class="space-y-8 relative z-10">
-                <input type="text" id="targetLink" placeholder="Paste Link (FB, Insta, TikTok)..." 
-                       class="w-full p-6 bg-black border border-zinc-800 rounded-3xl text-center text-xl text-cyan-400 focus:border-cyan-400 outline-none">
-                
-                <button onclick="startDeepExtraction()" id="mainBtn" class="btn-apex w-full p-6 text-xl uppercase tracking-widest">
-                    <i class="fas fa-bolt-lightning mr-2"></i> Instant Download
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="glass-panel max-w-4xl w-full p-10 md:p-16 rounded-[3rem] shadow-2xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">AI Metadata <span class="text-rose-600">Analyzer</span></h2>
+                <p class="text-slate-400 max-w-lg mx-auto leading-relaxed text-sm">Our 2026 proprietary engine analyzes digital signatures and SEO structures to boost your ranking potential.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 mb-10">
+                <div class="relative flex-1">
+                    <i class="fas fa-link absolute left-5 top-5 text-rose-500"></i>
+                    <input type="text" class="w-full p-5 pl-14 bg-slate-950/80 border border-slate-700 rounded-2xl outline-none focus:border-rose-600 transition text-sm" placeholder="Paste link here (YouTube, Vimeo, etc)...">
+                </div>
+                <button class="bg-rose-600 hover:bg-rose-700 px-10 py-5 rounded-2xl font-bold uppercase text-xs tracking-widest shadow-lg shadow-rose-900/20 transition-all">
+                    Run Analysis
                 </button>
             </div>
 
-            <div id="statusReport" class="hidden mt-10">
-                <p id="msg" class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Initialising Bypass...</p>
-            </div>
-
-            <div id="resultArea" class="hidden mt-12 pt-12 border-t border-zinc-900 animate-fade-in">
-                <div class="bg-zinc-900/40 p-8 rounded-3xl border border-white/5">
-                    <p class="text-[10px] text-green-500 font-black mb-6 uppercase tracking-widest">Security Cracked - Media Ready</p>
-                    
-                    <a id="downloadBtn" href="#" target="_blank" rel="noopener noreferrer" 
-                       class="btn-apex p-6 block text-center no-underline text-xl shadow-2xl">
-                        <i class="fas fa-file-download mr-2"></i> DOWNLOAD MP4 (HD)
-                    </a>
-                    
-                    <p class="mt-6 text-[8px] text-zinc-700 uppercase tracking-widest">Downloaded via Apex Internal Node</p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-30">
+                <div class="h-20 border border-dashed border-slate-700 rounded-xl flex items-center justify-center text-[10px] tracking-widest">AD ZONE 1</div>
+                <div class="h-20 border border-dashed border-slate-700 rounded-xl flex items-center justify-center text-[10px] tracking-widest">AD ZONE 2</div>
+                <div class="h-20 border border-dashed border-slate-700 rounded-xl flex items-center justify-center text-[10px] tracking-widest">AD ZONE 3</div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <script>
-        async function startDeepExtraction() {
-            const url = document.getElementById('targetLink').value.trim();
-            const btn = document.getElementById('mainBtn');
-            const result = document.getElementById('resultArea');
-            const report = document.getElementById('statusReport');
-            const msg = document.getElementById('msg');
-            const bar = document.getElementById('loaderBar');
-            const dlLink = document.getElementById('downloadBtn');
+    <footer class="p-10 border-t border-white/5 bg-slate-950">
+        <div class="max-w-4xl mx-auto text-center text-slate-500 text-[11px] leading-loose">
+            <p>© 2026 Syed Zaigham Abbas Shah. All rights reserved. <br> 
+            This site is optimized for Google AdSense compliance and provides essential content creation tools.</p>
+        </div>
+    </footer>
 
-            if (!url) return;
-
-            btn.disabled = true;
-            report.classList.remove('hidden');
-            result.classList.add('hidden');
-            bar.style.width = "10%";
-
-            // --- THE MASTER ENGINE LOGIC ---
-            // Yeh 4 alag alag engines se chori karega bina redirect kiye
-            const engineNodes = [
-                `https://api.vkrdownloader.tk/main.php?url=${encodeURIComponent(url)}`,
-                `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`,
-                `https://api.allinone.com/fetch?url=${encodeURIComponent(url)}`
-            ];
-
-            let foundData = null;
-
-            for (let i = 0; i < engineNodes.length; i++) {
-                try {
-                    bar.style.width = `${(i + 1) * 30}%`;
-                    msg.innerText = `Bypassing Security Layer ${i + 1}...`;
-                    
-                    const res = await fetch(engineNodes[i]);
-                    const data = await res.json();
-                    const final = data.data || data;
-
-                    if (final.url || final.play || (final.links && final.links.length > 0)) {
-                        foundData = final.play || final.url || (final.links ? final.links[0].url : null);
-                        if (foundData) break;
-                    }
-                } catch (e) {
-                    console.log("Switching Engine...");
-                }
-            }
-
-            if (foundData) {
-                bar.style.width = "100%";
-                msg.innerText = "Decryption Successful!";
-                dlLink.href = foundData;
-                // Force Download Jugar
-                dlLink.setAttribute('download', 'video.mp4'); 
-                
-                setTimeout(() => {
-                    report.classList.add('hidden');
-                    result.classList.remove('hidden');
-                }, 1000);
-            } else {
-                msg.innerText = "CRITICAL ERROR: Facebook Blocked Proxy. Use Secondary Gate.";
-                // Last option: Bina redirect kiye browser base download
-                window.location.href = `https://save-from.net/save?url=${url}`;
-            }
-
-            btn.disabled = false;
-        }
-    </script>
 </body>
 </html>
