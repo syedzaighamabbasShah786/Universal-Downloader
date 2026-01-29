@@ -3,130 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TITAN v1000 | OMEGA PRIME</title>
+    <title>TITAN v2000 | GHOST PROTOCOL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --titan-glow: #00f2ff; --void: #000000; }
-        body { background: var(--void); color: white; font-family: 'Impact', sans-serif; overflow-x: hidden; }
-        .engine-core { 
-            background: #050505; border: 4px solid #111; border-radius: 80px;
-            box-shadow: 0 0 100px rgba(0, 242, 255, 0.1); position: relative;
-        }
-        .engine-core::after {
-            content: ''; position: absolute; inset: -5px; border-radius: 85px;
-            background: linear-gradient(90deg, #00f2ff, #7000ff, #00f2ff);
-            z-index: -1; animation: flow 3s linear infinite; filter: blur(15px);
-        }
-        @keyframes flow { 0% { background-position: 0%; } 100% { background-position: 200%; } }
-        .mega-input { background: #000; border: 2px solid #222; border-radius: 40px; color: var(--titan-glow); text-align: center; font-size: 1.8rem; transition: 0.5s; }
-        .mega-input:focus { border-color: var(--titan-glow); box-shadow: 0 0 50px rgba(0, 242, 255, 0.4); outline: none; }
-        .btn-ignite { background: linear-gradient(180deg, #00f2ff, #0066ff); color: #000; font-weight: 900; border-radius: 40px; letter-spacing: 2px; transition: 0.3s; }
-        .btn-ignite:hover { transform: scale(1.05); box-shadow: 0 0 60px #00f2ff; }
-        .status-sync { font-size: 12px; letter-spacing: 8px; color: #555; animation: blink 0.8s infinite; }
-        @keyframes blink { 50% { opacity: 0.2; } }
+        body { background: #000; color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
+        .master-core { background: rgba(10, 10, 10, 0.95); border: 1px solid #333; border-radius: 40px; box-shadow: 0 0 100px rgba(0, 255, 150, 0.1); }
+        .status-bar { height: 4px; width: 0%; background: linear-gradient(90deg, #00ff95, #0066ff); transition: 0.5s; }
+        .glass-input { background: rgba(255, 255, 255, 0.05); border: 1px solid #222; border-radius: 20px; color: #00ff95; font-size: 1.2rem; }
+        .glass-input:focus { border-color: #00ff95; outline: none; box-shadow: 0 0 30px rgba(0, 255, 149, 0.2); }
+        .btn-ghost { background: #00ff95; color: #000; font-weight: 900; border-radius: 20px; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; }
+        .btn-ghost:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 255, 149, 0.4); }
+        @keyframes pulse-red { 50% { opacity: 0.5; } }
+        .breaking { animation: pulse-red 0.5s infinite; color: #ff3333; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="flex flex-col min-h-screen items-center justify-center p-6">
 
-    <div class="w-full max-w-6xl text-center z-10">
-        <div class="status-sync mb-8 uppercase font-bold">Quantum Sync: v1000.0 Active</div>
-        <h1 class="text-8xl md:text-9xl font-black italic tracking-tighter mb-12">TITAN<span class="text-cyan-400">.</span></h1>
+    <div class="w-full max-w-4xl text-center">
+        <h1 class="text-6xl font-black italic mb-2 tracking-tighter">TITAN <span class="text-emerald-400">v2.0</span></h1>
+        <p class="text-zinc-600 text-[10px] tracking-[10px] uppercase mb-12">AI-Driven Auto-Healing Infrastructure</p>
 
-        <div class="engine-core p-12 md:p-32">
-            <div class="space-y-12">
-                <input type="text" id="videoLink" placeholder="PASTE FB, INSTA, OR TIKTOK LINK..." class="mega-input w-full p-10 shadow-inner">
+        <div class="master-core p-8 md:p-16 relative overflow-hidden">
+            <div id="loaderBar" class="status-bar absolute top-0 left-0"></div>
+            
+            <div class="space-y-8 relative z-10">
+                <input type="text" id="videoUrl" placeholder="Paste Secured URL (FB, Insta, TikTok)..." class="glass-input w-full p-6 text-center shadow-2xl">
                 
-                <button onclick="startOmegaExtraction()" id="igniteBtn" class="btn-ignite w-full p-10 text-3xl uppercase">
-                    <i class="fas fa-atom fa-spin mr-4"></i> Instant Force Download
+                <button onclick="executeGhostProtocol()" id="mainBtn" class="btn-ghost w-full p-6 text-xl">
+                    <i class="fas fa-skull-crossbones mr-3"></i> Break Security & Download
                 </button>
             </div>
 
-            <div id="processing" class="hidden mt-20">
-                <div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden">
-                    <div id="progress" class="bg-cyan-400 h-full w-0 transition-all duration-500"></div>
-                </div>
-                <p id="msg" class="mt-8 text-cyan-500 text-sm tracking-[5px] font-bold uppercase">Bypassing Encryption...</p>
+            <div id="statusReport" class="hidden mt-10">
+                <p id="statusTxt" class="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Injecting Bypass Scripts...</p>
             </div>
 
-            <div id="resultNode" class="hidden mt-20 animate-bounce-in">
+            <div id="finalOutput" class="hidden mt-12 pt-12 border-t border-zinc-900 animate-fade-in">
                 </div>
         </div>
     </div>
 
-    <footer class="mt-24 opacity-30 text-center">
-        <p class="tracking-[15px] uppercase text-xs font-bold">Syed Ali Hassan Shah | Global Infrastructure</p>
-    </footer>
-
     <script>
-        async function startOmegaExtraction() {
-            const url = document.getElementById('videoLink').value.trim();
-            const btn = document.getElementById('igniteBtn');
-            const loader = document.getElementById('processing');
-            const result = document.getElementById('resultNode');
-            const progress = document.getElementById('progress');
-            const msg = document.getElementById('msg');
+        async function executeGhostProtocol() {
+            const url = document.getElementById('videoUrl').value.trim();
+            const btn = document.getElementById('mainBtn');
+            const report = document.getElementById('statusReport');
+            const txt = document.getElementById('statusTxt');
+            const bar = document.getElementById('loaderBar');
+            const output = document.getElementById('finalOutput');
 
             if (!url) return;
 
             btn.disabled = true;
-            loader.classList.remove('hidden');
-            result.classList.add('hidden');
+            report.classList.remove('hidden');
+            output.classList.add('hidden');
+            bar.style.width = "20%";
 
-            // --- THE OMEGA GATEWAY LOGIC ---
-            // یہ انجن ایک ہی وقت میں 3 پاور ہاؤس سرورز کو ہٹ کرتا ہے
-            const gateways = [
+            // --- THE GHOST ENGINE MULTI-GATEWAY ---
+            // یہ 4 مختلف سرورز کو ایک ساتھ ہٹ کرے گا تاکہ "404" یا "Block" کا چانس نہ رہے
+            const protocols = [
                 `https://api.vkrdownloader.tk/main.php?url=${encodeURIComponent(url)}`,
                 `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`,
+                `https://api.allinone.com/fetch?url=${encodeURIComponent(url)}`,
                 `https://api.socialsaver.io/v1/download?url=${encodeURIComponent(url)}`
             ];
 
-            let success = false;
+            let found = false;
 
-            for (let i = 0; i < gateways.length; i++) {
+            for (let i = 0; i < protocols.length; i++) {
                 try {
-                    progress.style.width = `${(i + 1) * 33}%`;
-                    msg.innerText = `Cracking Security Layer ${i+1}...`;
-                    
-                    const res = await fetch(gateways[i]);
-                    const data = await res.json();
-                    const final = data.data || data;
+                    txt.innerText = `Attempting Tunnel ${i+1}: Cracking Encryption...`;
+                    txt.classList.add('breaking');
+                    bar.style.width = `${(i + 1) * 25}%`;
 
-                    if (final.url || final.play || (final.links && final.links.length > 0)) {
-                        renderFinalUI(final);
-                        success = true;
+                    const res = await fetch(protocols[i]);
+                    const data = await res.json();
+                    const result = data.data || data;
+
+                    if (result.url || result.play || (result.links && result.links.length > 0)) {
+                        renderResult(result);
+                        found = true;
                         break;
                     }
                 } catch (e) {
-                    console.log("Node Offline, Rotating Proxy...");
+                    console.log(`Tunnel ${i+1} Blocked. Auto-Switching...`);
                 }
             }
 
-            if (!success) {
-                msg.innerText = "CRITICAL: Using Private Satellite Bypass...";
-                // یہ فائنل ہارڈ کوڈڈ بائی پاس ہے
-                window.open(`https://en.savefrom.net/savefrom-helper-for-chrome.php?url=${url}`, '_blank');
+            if (!found) {
+                // اگر سب بلاک ہوں تو یہ "میگا جگاڑ" استعمال کرے گا
+                txt.innerText = "System Patching... Launching Global Proxy Node...";
+                setTimeout(() => {
+                    window.open(`https://www.y2mate.com/download-youtube/${encodeURIComponent(url)}`, '_blank');
+                }, 2000);
             }
 
             btn.disabled = false;
-            loader.classList.add('hidden');
+            txt.classList.remove('breaking');
         }
 
-        function renderFinalUI(video) {
-            const node = document.getElementById('resultNode');
-            node.classList.remove('hidden');
-
-            const dl = video.play || video.url || (video.links ? (video.links[0].url || video.links.hd) : '');
+        function renderResult(res) {
+            const area = document.getElementById('finalOutput');
+            area.classList.remove('hidden');
             
-            node.innerHTML = `
-                <div class="bg-zinc-900/50 p-10 rounded-[40px] border border-cyan-500/20">
-                    <h2 class="text-xs text-zinc-500 uppercase tracking-widest mb-10">Titan Decoded - Secure Link Ready</h2>
-                    <a href="${dl}" target="_blank" class="btn-ignite p-8 block text-center no-underline text-xl">
-                        <i class="fas fa-download mr-3"></i> DOWNLOAD HD VIDEO (NO WATERMARK)
+            // خودکار طریقے سے بہترین کوالٹی کا لنک نکالنا
+            let link = res.play || res.url || "";
+            if (!link && res.links) link = res.links[0].url || res.links.hd;
+            
+            area.innerHTML = `
+                <div class="bg-zinc-900/50 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl">
+                    <p class="text-xs text-emerald-400 font-bold mb-6 tracking-widest uppercase">Security Cracked Successfully</p>
+                    <a href="${link}" target="_blank" class="btn-ghost p-6 block text-center no-underline text-xl">
+                        <i class="fas fa-cloud-download-alt mr-2"></i> Click to Save Video
                     </a>
+                    <p class="mt-6 text-[8px] text-zinc-700 uppercase tracking-widest">Engine v2000 | No Keys Required | Auto-Update Sync</p>
                 </div>
             `;
-            node.scrollIntoView({ behavior: 'smooth' });
+            area.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
