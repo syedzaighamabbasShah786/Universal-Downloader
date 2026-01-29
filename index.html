@@ -3,115 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TITAN vX | SHADOW PROTOCOL</title>
+    <title>VIRAL JET PRO | OMEGA vX</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --neon: #39ff14; --bg: #030303; }
-        body { background: var(--bg); color: white; font-family: 'Courier New', Courier, monospace; }
-        .shadow-box { border: 1px solid #1a1a1a; background: #080808; border-radius: 50px; position: relative; }
-        .shadow-box::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(45deg, #39ff14, #0062ff, #39ff14); z-index: -1; border-radius: 52px; opacity: 0.15; filter: blur(10px); }
-        .neon-input { background: #000; border: 1px solid #222; border-radius: 25px; color: var(--neon); font-size: 1.4rem; transition: 0.3s; }
-        .neon-input:focus { border-color: var(--neon); box-shadow: 0 0 30px rgba(57, 255, 20, 0.2); outline: none; }
-        .btn-shadow { background: linear-gradient(90deg, #39ff14, #00ff95); color: black; font-weight: 900; border-radius: 25px; transition: 0.4s; }
-        .btn-shadow:hover { transform: scale(1.05); box-shadow: 0 0 50px #39ff14; }
-        .ghost-status { font-size: 10px; color: #444; letter-spacing: 6px; animation: pulse 1s infinite; }
-        @keyframes pulse { 50% { opacity: 0.2; } }
+        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .engine-shield { background: #000; border: 2px solid #111; border-radius: 40px; box-shadow: 0 20px 80px rgba(0,0,0,1); transition: 0.5s; }
+        .engine-shield:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
+        .input-mega { background: #111; border: 1px solid #222; border-radius: 20px; color: #00f2ff; text-align: center; }
+        .input-mega:focus { outline: none; border-color: #00f2ff; box-shadow: 0 0 20px rgba(0, 242, 255, 0.1); }
+        .btn-extract { background: linear-gradient(90deg, #00f2ff, #0061ff); color: #000; font-weight: 800; border-radius: 20px; transition: 0.3s; text-transform: uppercase; }
+        .btn-extract:hover { transform: scale(1.02); filter: brightness(1.2); }
+        .loader-ring { width: 50px; height: 50px; border: 5px solid #111; border-top-color: #00f2ff; border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="flex flex-col min-h-screen items-center justify-center p-6">
 
-    <div class="w-full max-w-4xl text-center">
-        <div class="ghost-status mb-6 uppercase">SYSTEM: SHADOW-TUNNEL vX ACTIVE</div>
-        <h1 class="text-7xl font-black italic tracking-tighter mb-4">TITAN<span class="text-green-500">_</span>vX</h1>
-        <p class="text-zinc-700 text-[10px] tracking-[12px] uppercase mb-16 italic">AI-Bypassing Multi-Proxy Infrastructure</p>
+    <div class="w-full max-w-3xl text-center">
+        <h1 class="text-5xl font-black mb-2 tracking-tighter">TITAN <span class="text-cyan-400 italic text-2xl">vX.PRO</span></h1>
+        <p class="text-zinc-600 text-[10px] tracking-[8px] uppercase mb-12">Universal Media Decryption Engine</p>
 
-        <div class="shadow-box p-10 md:p-20">
-            <div class="space-y-10">
-                <input type="text" id="targetLink" placeholder="PASTE FB, INSTA, OR TIKTOK URL..." class="neon-input w-full p-8 text-center">
-                <button onclick="igniteShadowProtocol()" id="actionBtn" class="btn-shadow w-full p-8 text-2xl uppercase">
-                    <i class="fas fa-mask mr-3"></i> Stealth Extraction
+        <div class="engine-shield p-10 md:p-16">
+            <div class="space-y-6">
+                <input type="text" id="videoUrl" placeholder="Paste Video Link (FB, Insta, TikTok)..." class="input-mega w-full p-6 text-lg">
+                <button onclick="igniteExtraction()" id="mainBtn" class="btn-extract w-full p-6 text-xl shadow-lg">
+                    <i class="fas fa-bolt mr-2"></i> Extract Media
                 </button>
             </div>
 
-            <div id="loader" class="hidden mt-16 text-center">
-                <div class="inline-block animate-spin text-green-500 text-5xl mb-6"><i class="fas fa-spinner"></i></div>
-                <p id="engineMsg" class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Injecting Proxy Payload...</p>
+            <div id="statusNode" class="hidden mt-10">
+                <div class="loader-ring"></div>
+                <p id="logMsg" class="mt-4 text-[10px] uppercase tracking-widest text-zinc-500">Bypassing Firewalls...</p>
             </div>
 
-            <div id="resultNode" class="hidden mt-16 pt-16 border-t border-zinc-900">
+            <div id="resultNode" class="hidden mt-12 animate-fade-in p-6 bg-zinc-900/30 rounded-3xl border border-white/5">
+                <h3 id="vidTitle" class="text-sm font-bold mb-6 text-zinc-400 uppercase">Video Decoded</h3>
+                <div class="flex flex-col gap-4">
+                    <a id="dlLink" href="#" download class="btn-extract p-5 block no-underline">
+                        <i class="fas fa-download mr-2"></i> Download Video (High Quality)
+                    </a>
                 </div>
+            </div>
         </div>
     </div>
 
     <script>
-        async function igniteShadowProtocol() {
-            const url = document.getElementById('targetLink').value.trim();
-            const btn = document.getElementById('actionBtn');
-            const loader = document.getElementById('loader');
+        async function igniteExtraction() {
+            const url = document.getElementById('videoUrl').value.trim();
+            const btn = document.getElementById('mainBtn');
+            const status = document.getElementById('statusNode');
             const result = document.getElementById('resultNode');
-            const msg = document.getElementById('engineMsg');
+            const msg = document.getElementById('logMsg');
+            const dlBtn = document.getElementById('dlLink');
 
             if (!url) return;
 
             btn.disabled = true;
-            loader.classList.remove('hidden');
+            status.classList.remove('hidden');
             result.classList.add('hidden');
 
-            // --- THE MASTER JUGAR (Multi-Gateway Stealth) ---
-            // یہ 5 مختلف خفیہ راستوں سے چوری کرتا ہے
-            const gateways = [
+            // --- THE MASTER JUGAR: Multi-Node Scraping ---
+            // یہ 5 مختلف پاور ہاؤسز سے ایک ساتھ ڈیٹا مانگے گا
+            const nodes = [
                 `https://api.vkrdownloader.tk/main.php?url=${encodeURIComponent(url)}`,
                 `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`,
                 `https://api.socialsaver.io/v1/download?url=${encodeURIComponent(url)}`,
-                `https://dl.id/api/fetch?url=${encodeURIComponent(url)}` // Private Node
+                `https://api.allvideodownloader.cc/get?url=${encodeURIComponent(url)}`
             ];
 
             let success = false;
 
-            for (let i = 0; i < gateways.length; i++) {
+            for (let i = 0; i < nodes.length; i++) {
                 try {
-                    msg.innerText = `TUNNEL ${i+1}: BYPASSING FACEBOOK FIREWALL...`;
-                    
-                    const response = await fetch(gateways[i]);
+                    msg.innerText = `Connecting to Secure Node ${i + 1}...`;
+                    const response = await fetch(nodes[i]);
                     const data = await response.json();
-                    const final = data.data || data;
+                    
+                    // ڈیٹا کو صحیح طریقے سے پکڑنا
+                    let finalUrl = "";
+                    if (data.data && (data.data.url || data.data.play)) finalUrl = data.data.url || data.data.play;
+                    else if (data.url) finalUrl = data.url;
+                    else if (data.links && data.links[0]) finalUrl = data.links[0].url;
 
-                    if (final.url || final.play || (final.links && final.links.length > 0)) {
-                        renderFinalUI(final);
+                    if (finalUrl) {
+                        dlBtn.href = finalUrl;
                         success = true;
                         break;
                     }
                 } catch (e) {
-                    console.log(`Node ${i+1} Failed, Rotating Proxy...`);
+                    console.warn(`Node ${i+1} failed, rotating...`);
                 }
             }
 
-            if (!success) {
-                msg.innerText = "ALL NODES BLOCKED. LAUNCHING ULTIMATE GHOST NODE...";
-                // یہ "فائنل جگاڑ" ہے جو فیس بک کی سیکیورٹی کو براؤزر لیول پر توڑتا ہے
-                window.open(`https://snap-tik.io/download?url=${url}`, '_blank');
+            if (success) {
+                status.classList.add('hidden');
+                result.classList.remove('hidden');
+                msg.innerText = "Security Cracked Successfully!";
+            } else {
+                msg.innerText = "CRITICAL: Public APIs Blocked. Attempting Deep Scrape...";
+                // اگر سب فیل ہو جائیں تو یہ خفیہ "Shadow Node" استعمال کرے گا
+                setTimeout(() => {
+                    window.location.href = `https://snapsave.app/download?url=${url}`;
+                }, 2000);
             }
-
             btn.disabled = false;
-            loader.classList.add('hidden');
-        }
-
-        function renderFinalUI(res) {
-            const node = document.getElementById('resultNode');
-            node.classList.remove('hidden');
-            const dl = res.play || res.url || (res.links ? (res.links[0].url || res.links.hd) : '');
-            
-            node.innerHTML = `
-                <div class="text-center">
-                    <div class="text-[10px] text-green-500 mb-8 uppercase tracking-[8px]">Extraction Complete</div>
-                    <a href="${dl}" target="_blank" class="btn-shadow p-8 block text-center no-underline text-xl">
-                        <i class="fas fa-download mr-3"></i> DOWNLOAD HD VIDEO
-                    </a>
-                    <p class="mt-8 text-[8px] text-zinc-800 uppercase tracking-widest italic">Shadow Engine vX - Auto-Updating Nodes</p>
-                </div>
-            `;
-            node.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
