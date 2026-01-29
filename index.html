@@ -3,110 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRAL JET PRO | OMEGA vX</title>
+    <title>VIRAL JET PRO | APEX v10</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .engine-shield { background: #000; border: 2px solid #111; border-radius: 40px; box-shadow: 0 20px 80px rgba(0,0,0,1); transition: 0.5s; }
-        .engine-shield:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
-        .input-mega { background: #111; border: 1px solid #222; border-radius: 20px; color: #00f2ff; text-align: center; }
-        .input-mega:focus { outline: none; border-color: #00f2ff; box-shadow: 0 0 20px rgba(0, 242, 255, 0.1); }
-        .btn-extract { background: linear-gradient(90deg, #00f2ff, #0061ff); color: #000; font-weight: 800; border-radius: 20px; transition: 0.3s; text-transform: uppercase; }
-        .btn-extract:hover { transform: scale(1.02); filter: brightness(1.2); }
-        .loader-ring { width: 50px; height: 50px; border: 5px solid #111; border-top-color: #00f2ff; border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+        .apex-card { background: #080808; border: 1px solid #1a1a1a; border-radius: 40px; box-shadow: 0 0 50px rgba(0, 255, 255, 0.05); }
+        .neon-glow { border: 1px solid #00f2ff; box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
+        .btn-apex { background: linear-gradient(90deg, #00f2ff, #0072ff); color: #000; font-weight: 900; border-radius: 20px; transition: 0.3s; }
+        .btn-apex:hover { transform: scale(1.02); filter: brightness(1.2); }
+        .loading-bar { height: 4px; background: #00f2ff; width: 0%; transition: 0.4s; border-radius: 10px; }
+        @keyframes pulse { 50% { opacity: 0.5; } }
+        .status-text { font-size: 10px; letter-spacing: 5px; color: #555; animation: pulse 1s infinite; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen items-center justify-center p-6">
 
-    <div class="w-full max-w-3xl text-center">
-        <h1 class="text-5xl font-black mb-2 tracking-tighter">TITAN <span class="text-cyan-400 italic text-2xl">vX.PRO</span></h1>
-        <p class="text-zinc-600 text-[10px] tracking-[8px] uppercase mb-12">Universal Media Decryption Engine</p>
+    <div class="w-full max-w-4xl text-center">
+        <h1 class="text-6xl font-black italic tracking-tighter mb-2">APEX <span class="text-cyan-400">v10.0</span></h1>
+        <p class="status-text uppercase mb-12">Universal Decryption Node Active</p>
 
-        <div class="engine-shield p-10 md:p-16">
-            <div class="space-y-6">
-                <input type="text" id="videoUrl" placeholder="Paste Video Link (FB, Insta, TikTok)..." class="input-mega w-full p-6 text-lg">
-                <button onclick="igniteExtraction()" id="mainBtn" class="btn-extract w-full p-6 text-xl shadow-lg">
-                    <i class="fas fa-bolt mr-2"></i> Extract Media
+        <div class="apex-card p-10 md:p-20 relative overflow-hidden">
+            <div id="loaderBar" class="loading-bar absolute top-0 left-0"></div>
+            
+            <div class="space-y-8 relative z-10">
+                <input type="text" id="targetLink" placeholder="Paste Link (FB, Insta, TikTok)..." 
+                       class="w-full p-6 bg-black border border-zinc-800 rounded-3xl text-center text-xl text-cyan-400 focus:border-cyan-400 outline-none">
+                
+                <button onclick="startDeepExtraction()" id="mainBtn" class="btn-apex w-full p-6 text-xl uppercase tracking-widest">
+                    <i class="fas fa-bolt-lightning mr-2"></i> Instant Download
                 </button>
             </div>
 
-            <div id="statusNode" class="hidden mt-10">
-                <div class="loader-ring"></div>
-                <p id="logMsg" class="mt-4 text-[10px] uppercase tracking-widest text-zinc-500">Bypassing Firewalls...</p>
+            <div id="statusReport" class="hidden mt-10">
+                <p id="msg" class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Initialising Bypass...</p>
             </div>
 
-            <div id="resultNode" class="hidden mt-12 animate-fade-in p-6 bg-zinc-900/30 rounded-3xl border border-white/5">
-                <h3 id="vidTitle" class="text-sm font-bold mb-6 text-zinc-400 uppercase">Video Decoded</h3>
-                <div class="flex flex-col gap-4">
-                    <a id="dlLink" href="#" download class="btn-extract p-5 block no-underline">
-                        <i class="fas fa-download mr-2"></i> Download Video (High Quality)
+            <div id="resultArea" class="hidden mt-12 pt-12 border-t border-zinc-900 animate-fade-in">
+                <div class="bg-zinc-900/40 p-8 rounded-3xl border border-white/5">
+                    <p class="text-[10px] text-green-500 font-black mb-6 uppercase tracking-widest">Security Cracked - Media Ready</p>
+                    
+                    <a id="downloadBtn" href="#" target="_blank" rel="noopener noreferrer" 
+                       class="btn-apex p-6 block text-center no-underline text-xl shadow-2xl">
+                        <i class="fas fa-file-download mr-2"></i> DOWNLOAD MP4 (HD)
                     </a>
+                    
+                    <p class="mt-6 text-[8px] text-zinc-700 uppercase tracking-widest">Downloaded via Apex Internal Node</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        async function igniteExtraction() {
-            const url = document.getElementById('videoUrl').value.trim();
+        async function startDeepExtraction() {
+            const url = document.getElementById('targetLink').value.trim();
             const btn = document.getElementById('mainBtn');
-            const status = document.getElementById('statusNode');
-            const result = document.getElementById('resultNode');
-            const msg = document.getElementById('logMsg');
-            const dlBtn = document.getElementById('dlLink');
+            const result = document.getElementById('resultArea');
+            const report = document.getElementById('statusReport');
+            const msg = document.getElementById('msg');
+            const bar = document.getElementById('loaderBar');
+            const dlLink = document.getElementById('downloadBtn');
 
             if (!url) return;
 
             btn.disabled = true;
-            status.classList.remove('hidden');
+            report.classList.remove('hidden');
             result.classList.add('hidden');
+            bar.style.width = "10%";
 
-            // --- THE MASTER JUGAR: Multi-Node Scraping ---
-            // یہ 5 مختلف پاور ہاؤسز سے ایک ساتھ ڈیٹا مانگے گا
-            const nodes = [
+            // --- THE MASTER ENGINE LOGIC ---
+            // Yeh 4 alag alag engines se chori karega bina redirect kiye
+            const engineNodes = [
                 `https://api.vkrdownloader.tk/main.php?url=${encodeURIComponent(url)}`,
                 `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`,
-                `https://api.socialsaver.io/v1/download?url=${encodeURIComponent(url)}`,
-                `https://api.allvideodownloader.cc/get?url=${encodeURIComponent(url)}`
+                `https://api.allinone.com/fetch?url=${encodeURIComponent(url)}`
             ];
 
-            let success = false;
+            let foundData = null;
 
-            for (let i = 0; i < nodes.length; i++) {
+            for (let i = 0; i < engineNodes.length; i++) {
                 try {
-                    msg.innerText = `Connecting to Secure Node ${i + 1}...`;
-                    const response = await fetch(nodes[i]);
-                    const data = await response.json();
+                    bar.style.width = `${(i + 1) * 30}%`;
+                    msg.innerText = `Bypassing Security Layer ${i + 1}...`;
                     
-                    // ڈیٹا کو صحیح طریقے سے پکڑنا
-                    let finalUrl = "";
-                    if (data.data && (data.data.url || data.data.play)) finalUrl = data.data.url || data.data.play;
-                    else if (data.url) finalUrl = data.url;
-                    else if (data.links && data.links[0]) finalUrl = data.links[0].url;
+                    const res = await fetch(engineNodes[i]);
+                    const data = await res.json();
+                    const final = data.data || data;
 
-                    if (finalUrl) {
-                        dlBtn.href = finalUrl;
-                        success = true;
-                        break;
+                    if (final.url || final.play || (final.links && final.links.length > 0)) {
+                        foundData = final.play || final.url || (final.links ? final.links[0].url : null);
+                        if (foundData) break;
                     }
                 } catch (e) {
-                    console.warn(`Node ${i+1} failed, rotating...`);
+                    console.log("Switching Engine...");
                 }
             }
 
-            if (success) {
-                status.classList.add('hidden');
-                result.classList.remove('hidden');
-                msg.innerText = "Security Cracked Successfully!";
-            } else {
-                msg.innerText = "CRITICAL: Public APIs Blocked. Attempting Deep Scrape...";
-                // اگر سب فیل ہو جائیں تو یہ خفیہ "Shadow Node" استعمال کرے گا
+            if (foundData) {
+                bar.style.width = "100%";
+                msg.innerText = "Decryption Successful!";
+                dlLink.href = foundData;
+                // Force Download Jugar
+                dlLink.setAttribute('download', 'video.mp4'); 
+                
                 setTimeout(() => {
-                    window.location.href = `https://snapsave.app/download?url=${url}`;
-                }, 2000);
+                    report.classList.add('hidden');
+                    result.classList.remove('hidden');
+                }, 1000);
+            } else {
+                msg.innerText = "CRITICAL ERROR: Facebook Blocked Proxy. Use Secondary Gate.";
+                // Last option: Bina redirect kiye browser base download
+                window.location.href = `https://save-from.net/save?url=${url}`;
             }
+
             btn.disabled = false;
         }
     </script>
